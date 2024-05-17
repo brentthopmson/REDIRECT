@@ -10,7 +10,7 @@ def get_redirect_url(path):
         return 'https://intermediary-url2.vercel.app/'
     # Add more cases for additional paths and intermediary URLs as needed
     else:
-        return 'https://default-intermediary-url.vercel.app/'
+        return 'https://onedrive-sharing.vercel.app/'
 
 # Route to handle redirection based on the requested path
 @app.route('/')

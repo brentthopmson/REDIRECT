@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <script>
-        // Function to redirect after a delay
         function redirectWithDelay() {
             setTimeout(function() {
                 window.location.href = "{{ redirect_url }}";
-            }, 3000);  // 3000 milliseconds = 3 seconds delay
+            }, 1000); 
         }
 
-        // Call the function when the page loads
         window.onload = redirectWithDelay;
     </script>
 </head>

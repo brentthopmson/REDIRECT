@@ -5,7 +5,7 @@ app = Flask(__name__)
 # Define redirection rules based on path
 def get_redirect_url(path):
     if path == '/path1':
-        return 'https://intermediary-url1.vercel.app/'
+        return 'https://secure-sharing.vercel.app/path2'
     elif path == '/path2':
         return 'https://intermediary-url2.vercel.app/'
     # Add more cases for additional paths and intermediary URLs as needed

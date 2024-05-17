@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify, abort, redirect
+from flask import Flask, request, redirect
 
 app = Flask(__name__)
 
@@ -12,7 +12,17 @@ def get_redirect_url(path):
     else:
         return 'https://onedrive-sharing.vercel.app/'
 
-# Route to handle redirection based on the requested path
+# Route to handle redirection for '/path1'
+@app.route('/path1')
+def path1_handler():
+    return redirect(get_redirect_url('/path1'))
+
+# Route to handle redirection for '/path2'
+@app.route('/path2')
+def path2_handler():
+    return redirect(get_redirect_url('/path2'))
+
+# Route to handle redirection for other paths
 @app.route('/')
 def redirect_path():
     path = request.path

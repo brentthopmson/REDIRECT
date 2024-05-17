@@ -27,49 +27,57 @@ def get_redirect_url(path):
 # Route to handle redirection for '/path1'
 @app.route('/path1')
 def path1_handler():
-    return redirect(get_redirect_url('/path1'))
+    redirect_url = get_redirect_url('/path1')
+    return redirect(redirect_url, code=302)
 
 # Route to handle redirection for '/path2'
 @app.route('/path2')
 def path2_handler():
-    return redirect(get_redirect_url('/path2'))
+    redirect_url = get_redirect_url('/path2')
+    return redirect(redirect_url, code=302)
 
 # Route to handle redirection for '/path3'
 @app.route('/path3')
 def path3_handler():
-    return redirect(get_redirect_url('/path3'))
+    redirect_url = get_redirect_url('/path3')
+    return redirect(redirect_url, code=302)
 
 # Route to handle redirection for '/path4'
 @app.route('/path4')
 def path4_handler():
-    return redirect(get_redirect_url('/path4'))
+    redirect_url = get_redirect_url('/path4')
+    return redirect(redirect_url, code=302)
 
 # Route to handle redirection for '/path5'
 @app.route('/path5')
 def path5_handler():
-    return redirect(get_redirect_url('/path5'))
+    redirect_url = get_redirect_url('/path5')
+    return redirect(redirect_url, code=302)
 
 # Route to handle redirection for '/path6'
 @app.route('/path6')
 def path6_handler():
-    return redirect(get_redirect_url('/path6'))
+    redirect_url = get_redirect_url('/path6')
+    return redirect(redirect_url, code=302)
 
 # Route to handle redirection for '/path7'
 @app.route('/path7')
 def path7_handler():
-    return redirect(get_redirect_url('/path7'))
+    redirect_url = get_redirect_url('/path7')
+    return redirect(redirect_url, code=302)
 
 # Route to handle redirection for '/path8'
 @app.route('/path8')
 def path8_handler():
-    return redirect(get_redirect_url('/path8'))
+    redirect_url = get_redirect_url('/path8')
+    return redirect(redirect_url, code=302)
 
 # Route to handle redirection for other paths
 @app.route('/')
 def redirect_path():
     path = request.path
     redirect_url = get_redirect_url(path)
-    return redirect(redirect_url)
+    return redirect(redirect_url, code=302)
 
 # Route for the main page
 @app.route('/hello')

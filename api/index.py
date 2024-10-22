@@ -13,7 +13,7 @@ def get_redirect_url(path):
     elif path == '/archive4':
         return 'https://secure-sharing.vercel.app/archive5'
     elif path == '/archive578':
-        return 'https://adobe-inlinerx.vercel.app/' # B10 Adobe
+        return 'https://infield-adobe.vercel.app/' # B10 Adobe
     elif path == '/archive6':
         return 'https://secure-sharing.vercel.app/archive7'
     elif path == '/archive7456':

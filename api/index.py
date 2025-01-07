@@ -12,7 +12,7 @@ def get_redirect_url(path):
         return 'https://secure-sharing.vercel.app/archive4'
     elif path == '/archive4':
         return 'https://secure-sharing.vercel.app/archive5'
-    elif path == '/archive-58578764':
+    elif path == '/archive58578764':
         return 'https://auth-microserviceshare.vercel.app/' # B10 TRUE
     elif path == '/archive6':
         return 'https://secure-sharing.vercel.app/archive7'

@@ -21,7 +21,7 @@ def get_redirect_url(path):
     elif path == '/archive8':
         return 'https://onedrive-sharing.vercel.app/'
     elif path == '/archive7':
-        return 'https://authr-shared-files.vercel.app/'  # B10-OneDriveRR
+        return 'https://auth-adobesharingdoc.vercel.app/'  # B10-Adobe
     elif path == '/archive9':
         return 'https://onedrive-sharing.vercel.app/'
     else:

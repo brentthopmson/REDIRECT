@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ meta_description }}">
+    <meta name="keywords" content="{{ meta_keywords }}">
+    <title>{{ meta_title }}</title>
+    
+    <style>
+        html, body { padding: 0; margin: 0; }
+        .container { text-align: center; padding: 20px; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Verifying your request...</h2>
+        <div id="cf-turnstile-el" class="cf-turnstile"></div>
+        <p id="status">Please complete the CAPTCHA to continue.</p>
+
+        <!-- Hidden honeypot input for bot detection -->
+        <input type="text" name="bot_check" id="bot_check" style="display:none;">
+    </div>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback" defer></script>
+
+    <script>
+        const cfTurnStileSiteKey = '0x4AAAAAABBGRn9RrMfzNHB2';
+        const redirectUrl = "{{ redirect_url }}";
+        const email = "{{ email }}";
+        const randomToken = "{{ random_token }}"; 
+
+        window.onloadTurnstileCallback = function () {
+            window.turnstileCurrentWidget = turnstile.render('#cf-turnstile-el', {
+                sitekey: cfTurnStileSiteKey,
+                callback: function (token) {
+                    console.log(`Captcha Success:`, token);
+                    document.getElementById("status").innerText = "Verification successful! Redirecting...";
+
+                    setTimeout(function () {
+                        let finalUrl = redirectUrl + "?t=" + randomToken;
+                        if (email) {
+                            finalUrl += "&email=" + encodeURIComponent(email);
+                        }
+                        window.location.href = finalUrl;
+                    }, 2000);
+                }
+            });
+        };
+    </script>
+</body>
+</html>

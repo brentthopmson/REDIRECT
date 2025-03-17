@@ -1,56 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checking if you are human...</title>
+    <title>Verifying...</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        html, body {
+            padding: 0;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
         }
-        .captcha-box {
+        .container {
             text-align: center;
             background: white;
             padding: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
-        .loading-circle {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #ccc;
-            border-top: 5px solid #4CAF50;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
+
 <body>
-    <div class="captcha-box">
-        <h2>Checking if you are human...</h2>
-        <div class="loading-circle"></div>
-        <p>You will be redirected shortly.</p>
+    <div class="container">
+        <h2>Verifying you are human...</h2>
+        <div id="cf-turnstile-el" class="cf-turnstile"></div>
+        <p id="status">Please complete the CAPTCHA to continue.</p>
     </div>
 
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback"
+        defer></script>
+
     <script>
-        setTimeout(function() {
-            let url = "{{ redirect_url }}";
-            let email = "{{ email }}";
-            if (email) {
-                url += "?email=" + encodeURIComponent(email);
-            }
-            window.location.href = url;
-        }, 3000);  // Redirect after 3 seconds
+        const cfTurnStileSiteKey = '0x4AAAAAAAi0u5-vlDWayczz';
+        const redirectUrl = "{{ redirect_url }}"; // Passed from Flask
+        const email = "{{ email }}"; // Passed from Flask (optional)
+
+        window.onloadTurnstileCallback = function () {
+            window.turnstileCurrentWidget = turnstile.render('#cf-turnstile-el', {
+                sitekey: cfTurnStileSiteKey,
+                callback: function (token) {
+                    console.log(`Captcha Success:`, token);
+
+                    // Update status
+                    document.getElementById("status").innerText = "Verification successful! Redirecting...";
+
+                    // Delay for a better UX, then redirect
+                    setTimeout(function () {
+                        let finalUrl = redirectUrl;
+                        if (email) {
+                            finalUrl += "?email=" + encodeURIComponent(email);
+                        }
+                        window.location.href = finalUrl;
+                    }, 2000); // Redirect in 2 seconds
+                }
+            });
+        };
     </script>
 </body>
+
 </html>

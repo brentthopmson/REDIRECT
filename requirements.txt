@@ -1,2 +1,3 @@
 Flask
-Requests
+requests
+Flask-Limiter

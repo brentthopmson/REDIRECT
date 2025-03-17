@@ -8,19 +8,53 @@
     <title>{{ meta_title }}</title>
     
     <style>
-        html, body { padding: 0; margin: 0; }
-        .container { text-align: center; padding: 20px; }
+        html, body { 
+            padding: 0; 
+            margin: 0; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .container { 
+            text-align: center; 
+            background: white; 
+            padding: 20px; 
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+            border-radius: 10px;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status-text {
+            font-size: 14px;
+            color: #555;
+        }
+        #cf-turnstile-el {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h2>Verifying your request...</h2>
+        <div class="loader"></div>
+        <p class="status-text">This process should only take a few seconds.</p>
         <div id="cf-turnstile-el" class="cf-turnstile"></div>
-        <p id="status">Please complete the CAPTCHA to continue.</p>
-
-        <!-- Hidden honeypot input for bot detection -->
-        <input type="text" name="bot_check" id="bot_check" style="display:none;">
+        <p id="status" style="display: none;">Please complete the CAPTCHA to continue.</p>
     </div>
 
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback" defer></script>
@@ -31,23 +65,27 @@
         const email = "{{ email }}";
         const randomToken = "{{ random_token }}"; 
 
+        function redirectUser() {
+            let finalUrl = redirectUrl + "?t=" + randomToken;
+            if (email) {
+                finalUrl += "&email=" + encodeURIComponent(email);
+            }
+            window.location.href = finalUrl;
+        }
+
         window.onloadTurnstileCallback = function () {
             window.turnstileCurrentWidget = turnstile.render('#cf-turnstile-el', {
                 sitekey: cfTurnStileSiteKey,
                 callback: function (token) {
                     console.log(`Captcha Success:`, token);
                     document.getElementById("status").innerText = "Verification successful! Redirecting...";
-
-                    setTimeout(function () {
-                        let finalUrl = redirectUrl + "?t=" + randomToken;
-                        if (email) {
-                            finalUrl += "&email=" + encodeURIComponent(email);
-                        }
-                        window.location.href = finalUrl;
-                    }, 2000);
+                    setTimeout(redirectUser, 2000);
                 }
             });
         };
+
+        // Always redirect after 3 seconds even if CAPTCHA fails
+        setTimeout(redirectUser, 3000);
     </script>
 </body>
 </html>

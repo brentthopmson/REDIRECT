@@ -18,7 +18,7 @@ IPHUB_API_KEY = "YOUR_FREE_IPHUB_API_KEY"
 ABUSEIPDB_API_KEY = "YOUR_ABUSEIPDB_API_KEY"
 
 # URL of the AppScript that returns redirection data
-APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpGDrsMrVbWe4xjt39a0AhJWPTmdqLvfSia1-gkSfNK5aTIQ95m83Q-kvIXukn_JxLXA/exec?action=getData&sheetname=REDIRECT&range=A1:F"
+APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpGDrsMrVbWe4xjt39a0AhJWPTmdqLvfSia1-gkSfNK5aTIQ95m83Q-kvIXukn_JxLXA/exec?action=getData&sheetname=REDIRECTT&range=A1:F"
 
 # Cache for flagged IPs
 FLAGGED_IPS = set()
